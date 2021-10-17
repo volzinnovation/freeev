@@ -1,0 +1,31 @@
+# This is a basic workflow that is manually triggered
+
+name: Manual execution
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  installieren:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Checkout latest version
+        uses: actions/checkout@v2
+      - name: Installiere notwendige Pakete 
+        run:  |
+          sudo apt-get install wget
+          pip install folium==0.12.1
+      - name: Führe Analyse Batch aus
+        run: python create_map.py 
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"    # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
+          git config user.email "<>"
+      - name: commit update
+        run: |
+          git add map.html
+          git commit -m "Daily Update."
+          git push origin master    # Stage the file, commit and push
