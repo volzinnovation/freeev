@@ -28,8 +28,7 @@ jobs:
           git config user.email "<>"
       - name: commit update
         run: |
-          git init
           git add .
           git add map.html
           git commit -m "Daily Update."
-          git push -u origin master    # Stage the file, commit and push
+          git push # -u origin master    # Stage the file, commit and push
