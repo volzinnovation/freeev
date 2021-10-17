@@ -19,6 +19,7 @@ jobs:
           sudo apt-get install wget
           pip install folium==0.12.1
           pip install pandas
+          pip install openpyxl
       - name: Lade Datensatz
         run: wget -O Ladesaeulenkarte_Datenbankauszug.xlsx https://www.bundesnetzagentur.de/SharedDocs/Downloads/DE/Sachgebiete/Energie/Unternehmen_Institutionen/E_Mobilitaet/Ladesaeulenkarte_Datenbankauszug.xlsx?__blob=publicationFile&v=10 
       - name: Führe Analyse Batch aus
