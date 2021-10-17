@@ -21,4 +21,4 @@ for indice, row in freev.iterrows():
         tooltip=row['Betreiber'] + '(' + str(row['Max']) + ')', # https://www.google.com/maps/search/?api=1&query=48.80506,8.4449
         icon=folium.map.Icon(color='blue')
     ).add_to(mymap)
-mymap.save("map.html")
+mymap.save("index.html")
