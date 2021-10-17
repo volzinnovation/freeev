@@ -20,7 +20,7 @@ mymap.get_root().html.add_child(folium.Element(title_html))
 LocateControl(True).add_to(mymap)
 #You Markler the point in Map
 for indice, row in freev.iterrows():
-    folium.CircleMarker(
+    folium.Marker(
         location=[row["Breitengrad"],row["Längengrad"] ],
         popup = '<a href="https://www.google.com/maps/search/?api=1&query=' + str(row["Breitengrad"]) + "," + str(row["Längengrad"]) +'">' + row['Betreiber'] + ' (' + str(row['Max']) + ' KW)' + '</a>',
         tooltip=row['Betreiber'] + ' (' + str(row['Max']) + ' KW)', # https://www.google.com/maps/search/?api=1&query=48.80506,8.4449
