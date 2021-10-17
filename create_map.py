@@ -10,10 +10,11 @@ freev = data[(data.Betreiber == "ALDI SÜD") |
 freev = freev[freev.Max > 22]
 # Create map
 import folium
-from folium.plugins import LocateControlloc = 'Kostenfreie deutsche Ladesäulen'
+from folium.plugins import LocateControl
+title = 'Kostenfreie deutsche Ladesäulen'
 title_html = '''
              <h3 align="center" style="font-size:16px"><b>{}</b><br/><i>Tipp:Auf Markierung klicken, um zur Ladestation zu navigieren.</i></h3>
-             '''.format(loc)   
+             '''.format(title)   
 mymap = folium.Map(location=[49.0, 8.2], zoom_start=9)
 mymap.get_root().html.add_child(folium.Element(title_html))
 LocateControl(True).add_to(mymap)
