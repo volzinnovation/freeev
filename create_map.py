@@ -10,15 +10,19 @@ freev = data[(data.Betreiber == "ALDI SÜD") |
 freev = freev[freev.Max > 22]
 # Create map
 import folium
-from folium.plugins import LocateControl
+from folium.plugins import LocateControlloc = 'Kostenfreie deutsche Ladesäulen'
+title_html = '''
+             <h3 align="center" style="font-size:16px"><b>{}</b><br/><i>Tipp:Auf Markierung klicken, um zur Ladestation zu navigieren.</i></h3>
+             '''.format(loc)   
 mymap = folium.Map(location=[49.0, 8.2], zoom_start=9)
+mymap.get_root().html.add_child(folium.Element(title_html))
 LocateControl(True).add_to(mymap)
 #You Markler the point in Map
 for indice, row in freev.iterrows():
     folium.CircleMarker(
         location=[row["Breitengrad"],row["Längengrad"] ],
-        popup = '<a href="https://www.google.com/maps/search/?api=1&query=' + str(row["Breitengrad"]) + "," + str(row["Längengrad"]) +'">' + row['Betreiber'] + '(' + str(row['Max']) + ')' + '</a>',
-        tooltip=row['Betreiber'] + '(' + str(row['Max']) + ')', # https://www.google.com/maps/search/?api=1&query=48.80506,8.4449
+        popup = '<a href="https://www.google.com/maps/search/?api=1&query=' + str(row["Breitengrad"]) + "," + str(row["Längengrad"]) +'">' + row['Betreiber'] + ' (' + str(row['Max']) + ' KW)' + '</a>',
+        tooltip=row['Betreiber'] + ' (' + str(row['Max']) + ' KW)', # https://www.google.com/maps/search/?api=1&query=48.80506,8.4449
         icon=folium.map.Icon(color='blue')
     ).add_to(mymap)
 mymap.save("index.html")
