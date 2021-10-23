@@ -15,7 +15,7 @@ def add(lat,lon,name,kw):
   lons.append(lon)
   names.append(name)
   kws.append(kw)
-  print("")
+  print(".")
 
 class CSHandler(o.SimpleHandler):
 
@@ -26,6 +26,11 @@ class CSHandler(o.SimpleHandler):
         add("%f" % n.location.lat, "%f" % n.location.lon, "%s" % name, "%s" % kw ) # due to strange errors in pyosmium
         del n # due to strange errors in pyosmium
         
+
+# Parse and Filter data
+handler = CSHandler()
+handler.apply_file("osm.pbf")
+
 # Create data frame from results
 cs = pd.DataFrame({
                             'Längengrad': lons,
