@@ -24,6 +24,7 @@ jobs:
         run: |
           curl -O http://ftp5.gwdg.de/pub/misc/openstreetmap/download.geofabrik.de/germany-latest.osm.pbf
           mv germany-latest.osm.pbf osm.pbf
+          ls -lah
       - name: Führe Analyse Batch aus
         run: python create_map_osm.py 
       - name: setup git config
