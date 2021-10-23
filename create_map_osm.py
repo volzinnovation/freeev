@@ -56,4 +56,4 @@ for indice, row in cs.iterrows():
         icon=folium.map.Icon(color=color)
     ).add_to(mymap)
 
-mymap.save("index.html")
+mymap.save("osm.html")
