@@ -1,7 +1,6 @@
 # Import Python libraries
 import osmium as o
 import sys
-import shapely.wkb as wkblib
 import pandas as pd
 import numpy as np
 
