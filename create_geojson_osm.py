@@ -48,8 +48,11 @@ from geojson import Point, Feature, FeatureCollection, dump
 features = []
 
 for indice, row in cs.iterrows():
-    point = Point(( row["Längengrad"], row["Breitengrad"]))
-    features.append(Feature(geometry=point, properties={"Betreiber": row['Betreiber'], "Max_KW" : str(row['Max']) }))
+    try: 
+      point = Point( ( float(row["Längengrad"]), float(row["Breitengrad"]) ) )
+      features.append(Feature(geometry=point, properties={"Betreiber": row['Betreiber'], "Max_KW" : str(row['Max']) }))
+    except:
+      print("Error in data format")
 
 feature_collection = FeatureCollection(features)
 
