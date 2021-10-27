@@ -26,8 +26,6 @@ jobs:
           curl -O http://ftp5.gwdg.de/pub/misc/openstreetmap/download.geofabrik.de/germany-latest.osm.pbf
           mv germany-latest.osm.pbf osm.pbf
           ls -lah
-      - name: Erzeuge OSM Karte
-        run: python create_map_osm.py 
       - name: Erzeuge OSM Geojson File
         run: python create_geojson_osm.py        
       - name: setup git config
