@@ -47,12 +47,9 @@ from geojson import Point, Feature, FeatureCollection, dump
 
 features = []
 
-for indice, row in freev.iterrows():
+for indice, row in cs.iterrows():
     point = Point(( row["Längengrad"], row["Breitengrad"]))
     features.append(Feature(geometry=point, properties={"Betreiber": row['Betreiber'], "Max_KW" : str(row['Max']) }))
-
-# add more features...
-# features.append(...)
 
 feature_collection = FeatureCollection(features)
 
