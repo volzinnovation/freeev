@@ -20,13 +20,16 @@ jobs:
           pip install folium==0.12.1
           pip install pandas
           pip install osmium
+          pip install geojson
       - name: Download der Daten
         run: |
           curl -O http://ftp5.gwdg.de/pub/misc/openstreetmap/download.geofabrik.de/germany-latest.osm.pbf
           mv germany-latest.osm.pbf osm.pbf
           ls -lah
-      - name: Führe Analyse Batch aus
+      - name: Erzeuge OSM Karte
         run: python create_map_osm.py 
+      - name: Erzeuge OSM Geojson File
+        run: python create_geojson_osm.py        
       - name: setup git config
         run: |
           git config user.name "GitHub Actions Bot"    # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
@@ -34,5 +37,6 @@ jobs:
       - name: commit update
         run: |
           git add osm.html
+          git add free_chargers_OSM.geojson
           git commit -m "Update from OSM source data."
           git push # -u origin master    # Stage the file, commit and push
