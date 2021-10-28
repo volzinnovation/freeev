@@ -68,7 +68,7 @@
     }
     function onEachFeature(feature, layer) {
     if (feature.properties && feature.properties.Betreiber) {
-        layer.bindPopup('<a href=\"http://maps.apple.com/?ll=' + feature.geometry.coordinates[1] + ',' + feature.geometry.coordinates[0] + '\">' + feature.properties.Betreiber + ' (' + feature.properties.Max_KW + ')</a>').openPopup();
+        layer.bindPopup('<a href=\"https://www.google.com/maps/search/?api=1&query=' + feature.geometry.coordinates[1] + ',' + feature.geometry.coordinates[0] + '\">' + feature.properties.Betreiber + ' (' + feature.properties.Max_KW + ')</a>').openPopup();
         layer.title=feature.properties.Betreiber;
     }
     // layer.on('click', onMapClick(feature.properties.Breitengrad, feature.properties.Längengrad));
