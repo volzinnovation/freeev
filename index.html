@@ -48,7 +48,7 @@
 
     L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "App  \u003ca href=\"http://www.raphaelvolz.de\"\u003e\u0026copy; 2021 Raphael Volz\u003c/a\u003e Daten der Ladenstationen von \u003ca href=\"http://openstreetmap.org\"\u003eBundesnetzagentur.de\u003c/a\u003e und \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, unter \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+                {"attribution": "App  \u003ca href=\"https://www.volzinnovation.com/\"\u003e\u0026copy; 2021 Raphael Volz\u003c/a\u003e Daten der Ladenstationen von \u003ca href=\"http://openstreetmap.org\"\u003eBundesnetzagentur.de\u003c/a\u003e und \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, unter \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             ).addTo(map);
 
 	function onLocationFound(e) {
@@ -99,8 +99,7 @@
     // request location update and set location
     lc.start();
     
-	map.locate({setView: true, maxZoom: 16});
-	//L.marker([8,8], {icon: L.icon.glyph({ prefix: 'mdi', glyph: 'power-plug' }) }).addTo(map);
+    map.locate({setView: true, maxZoom: 15});
 	
 </script>
 
