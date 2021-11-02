@@ -1,109 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
-	<title>freeev.de - Eine Karte der kostenfreien deutschen Ladesäulen</title>
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+    <title>freeev.de - Kostenfreie deutsche Ladesäulen</title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Apple specific -->
-	<link rel="apple-touch-icon" href="touch-icon.png">
+    <link rel="apple-touch-icon" href="touch-icon.png">
     <meta name="apple-mobile-web-app-title" content="Freeev.de">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    
-    <link href="https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css" rel="stylesheet" type="text/css" />
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+
+    <link href="https://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css" rel="stylesheet"
+          type="text/css"/>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css"/>
 
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>
-    
-    <script src="Leaflet.Icon.Glyph.js"></script>
-    
-    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.74.0/dist/L.Control.Locate.min.js"
+            charset="utf-8"></script>
+
+    <script src="web/js/Leaflet.Icon.Glyph.js"></script>
+
+
     <style>
- 		html, body {
- 			height: 100%;
- 			margin: 0;
- 		}
- 		#map {
- 			width: 600px;
- 			height: 400px;
- 		}
- 	</style>
-
-     <style>body { padding: 0; margin: 0; } #map { height: 100%; width: 100vw; }</style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            height: 100%;
+            width: 100vw;
+        }
+    </style>
 </head>
 <body>
-
 <div id='map'></div>
 
 <script>
-	var map = L.map('map', { "tap": false });
+    var map = L.map('map', {"tap": false});
 
     L.tileLayer(
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "App  \u003ca href=\"https://www.volzinnovation.com/\"\u003e\u0026copy; 2021 Raphael Volz\u003c/a\u003e Daten der Ladenstationen von \u003ca href=\"http://openstreetmap.org\"\u003eBundesnetzagentur.de\u003c/a\u003e und \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, unter \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map);
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            "attribution": "App  \u003ca href=\"https://www.volzinnovation.com/\"\u003e\u0026copy; 2021 Raphael Volz\u003c/a\u003e Daten der Ladenstationen von \u003ca href=\"http://openstreetmap.org\"\u003eBundesnetzagentur.de\u003c/a\u003e und \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, unter \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.",
+            "detectRetina": false,
+            "maxNativeZoom": 18,
+            "maxZoom": 18,
+            "minZoom": 0,
+            "noWrap": false,
+            "opacity": 1,
+            "subdomains": "abc",
+            "tms": false
+        }
+    ).addTo(map);
 
-	function onLocationFound(e) {
-		var radius = e.accuracy / 2;
-		L.circle(e.latlng, radius).addTo(map);
-	}
+    function onLocationFound(e) {
+        var radius = e.accuracy / 2;
+        L.circle(e.latlng, radius).addTo(map);
+    }
 
-	function onLocationError(e) {
-		alert(e.message);
-	}
+    function onLocationError(e) {
+        alert(e.message);
+    }
 
     function onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.Betreiber) {
-            layer.setIcon( L.icon.glyph({ prefix: 'mdi', glyph: 'power-plug', glyphColor: 'white' }));
+            layer.setIcon(L.icon.glyph({prefix: 'mdi', glyph: 'power-plug', glyphColor: 'white'}));
             try {
-                if(parseFloat(feature.properties.Max_KW) > 22) {
-                    layer.setIcon( L.icon.glyph({ prefix: 'mdi', glyph: 'power-plug', glyphColor: 'green' }));
+                if (parseFloat(feature.properties.Max_KW) > 22) {
+                    layer.setIcon(L.icon.glyph({prefix: 'mdi', glyph: 'power-plug', glyphColor: 'green'}));
                 }
-            } catch (error) {}
+            } catch (error) {
+            }
             layer.bindPopup('<a href=\"https://www.google.com/maps/search/?api=1&query=' + feature.geometry.coordinates[1] + ',' + feature.geometry.coordinates[0] + '\">' + feature.properties.Betreiber.substr(0, feature.properties.Betreiber.indexOf(" ")) + ' (' + feature.properties.Max_KW + ')</a>').openPopup();
-            layer.title=feature.properties.Betreiber;
+            layer.title = feature.properties.Betreiber;
         }
     }
+
     function load(url) {
         fetch(url)
-            .then(function(response) {
+            .then(function (response) {
                 return response.json();
-        }).then(function(data) {
-                L.geoJSON(data, {
+            }).then(function (data) {
+            L.geoJSON(data, {
                 onEachFeature: onEachFeature
-        }).addTo(map);
+            }).addTo(map);
         });
     }
-   load("https://raw.githubusercontent.com/volzinnovation/freeev/main/free_chargers_DE.geojson");
-   load("https://raw.githubusercontent.com/volzinnovation/freeev/main/free_chargers_OSM.geojson");
-    
-	map.on('locationfound', onLocationFound);
-	map.on('locationerror', onLocationError);
-	
+
+    load("https://raw.githubusercontent.com/volzinnovation/freeev/main/data/free_chargers_DE.geojson");
+    load("https://raw.githubusercontent.com/volzinnovation/freeev/main/data/free_chargers_OSM.geojson");
+
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+
     // create control and add to map
     let lc = L.control.locate({
-    position: 'topright',
-    strings: {
-        title: "Karte auf mich zentrieren"
-    }
+        position: 'topright',
+        strings: {
+            title: "Karte auf mich zentrieren"
+        }
     }).addTo(map);
 
-    // request location update and set location
-    // lc.start();
-    
     map.locate({setView: true, maxZoom: 15});
-	
 </script>
-
-
-
 </body>
 </html>
