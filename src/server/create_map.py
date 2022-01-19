@@ -1,5 +1,6 @@
+# This Python file uses the following encoding: utf-8
 import pandas as pd
-data = pd.read_excel('Ladesaeulenkarte_Datenbankauszug.xlsx', sheet_name=0, skiprows=5)
+data = pd.read_excel('../../data/Ladesaeulenkarte_Datenbankauszug.xlsx', sheet_name=0, skiprows=10)
 data["Max"] = data[["P1 [kW]", "P2 [kW]","P3 [kW]", "P4 [kW]"]].max(axis=1)
 freev = data[(data.Betreiber == "ALDI SÜD") |
              (data.Betreiber == "Lidl Dienstleistung GmbH & Co. KG" ) |
