@@ -27,7 +27,7 @@ jobs:
           mv germany-latest.osm.pbf osm.pbf
           ls -lah
       - name: Erzeuge OSM Geojson File
-        run: python server/src/create_geojson_osm.py        
+        run: python src/server/create_geojson_osm.py        
       - name: setup git config
         run: |
           git config user.name "GitHub Actions Bot"    # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
