@@ -20,11 +20,9 @@ jobs:
           pip install folium==0.12.1
           pip install pandas
           pip install openpyxl
-          pip install geojson
-      - name: Create Map BNA
-        run: python create_map.py       
+          pip install geojson   
       - name: Create Geojson BNA
-        run: python create_geojson_bna.py 
+        run: python src/server/create_geojson_bna.py 
       - name: setup git config
         run: |
           git config user.name "GitHub Actions Bot"    # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
