@@ -52,6 +52,39 @@
 
 <script>
     var map = L.map('map', {"tap": false, zoom:10});
+    let poiList = ["Restaurant",
+                    "Ort der Andacht",
+                    "Cafe ",
+                    "Fast Food",
+                    "Automat",
+                    "Bar",
+                    "Bibliothek",
+                    "Marktplatz",
+                    "Theater",
+                    "Eis",
+                    "Kino",
+                    "Grillplatz",
+                    "Kunstausstellung",
+                    "Nachtclub",
+                    "Bücherschrank",
+                    "Internet Cafe",
+                    "Food Court",
+                    "Biergarten",
+                    "Bordell",
+                    "Pub",
+                    "Museum",
+                    "Touristisches"]
+    var LeafIcon = L.Icon.extend({
+    options: {
+        iconSize:     [24, 24],
+        // shadowSize:   [50, 64],
+        iconAnchor:   [12, 12] //,
+        // shadowAnchor: [4, 62],
+        //popupAnchor:  [-3, -76]
+    }
+});
+
+
 
     L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -83,22 +116,111 @@
 
     function onEachFeature(feature, layer) {
         if (feature.properties && feature.properties.Betreiber) {
-            layer.setIcon(L.icon.glyph({prefix: 'mdi', glyph: 'power-plug', glyphColor: 'white'}));
-            try {
-                if (parseFloat(feature.properties.Max) > 22) {
-                    layer.setIcon(L.icon.glyph({prefix: 'mdi', glyph: 'power-plug', glyphColor: 'green'}));
-                }
-            } catch (error) {
+            let icon = L.icon.glyph({prefix: 'mdi', glyph: 'power-plug', glyphColor: 'white'}); // Backup
+            if( feature.properties["Restaurant"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_restaurant.png'})
+            } else if ( feature.properties["Ort der Andacht"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_place_of_worship.png'})
+            } else if ( feature.properties["Cafe "] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_cafe.png'})
+            } else if ( feature.properties["Fast Food"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_fast_food.png'})
+            } else if ( feature.properties["Automat"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_vending_machine.png'})
+            } else if ( feature.properties["Bar"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_cafe.png'}) // BAR MISSING
+            } else if ( feature.properties["Bibliothek"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_library.png'})
+            } else if ( feature.properties["Marktplatz"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_marketplace.png'})
+            } else if ( feature.properties["Theater"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_library.png'})
+            } else if ( feature.properties["Eis"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_cafe.png'}) // ICE CREAM MISSING
+            } else if ( feature.properties["Kino"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_cinema.png'})
+            } else if ( feature.properties["Grillplatz"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_bbq.png'})
+            } else if ( feature.properties["Internet Cafe"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_cafe.png'}) // MISSING ICON
+            } else if ( feature.properties["Food Court"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_food_court.png'})
+            } else if ( feature.properties["Biergarten"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_biergarten.png'})
+            } else if ( feature.properties["Bordell"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_brothel.png'})
+            } else if ( feature.properties["Pub"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_pub.png'})
+            }  else if ( feature.properties["Nachtclub"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/nightclub.png'})
+            } else if ( feature.properties["Kunstausstellung"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/amenity_arts_centre.png'})
+            } else if ( feature.properties["Touristisches"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/tourism_information.png'})
+            } else if ( feature.properties["Museum"] > 0 ) {
+                icon = new LeafIcon({iconUrl: 'web/img/tourism_museum.png'})
             }
-            var popupContent = '<table>';
-            for (var p in feature.properties) {
-                popupContent += '<tr><td>' + p + '</td><td>'+ feature.properties[p] + '</td></tr>';
+            layer.setIcon(icon);
+            // Icon output
+            let iconContent = ""
+            // Tabular ouput
+            let popupContent = '<table>';
+            for (let p in feature.properties) {
+                if(! poiList.includes(p) ) {
+                    popupContent += '<tr><td>' + p + '</td><td>'+ feature.properties[p] + '</td></tr>';
+                } else {
+                    let imgUrl = ""
+                    if( p === "Restaurant" ) {
+                         imgUrl = 'web/img/amenity_restaurant.png' 
+                    } else if ( p === "Ort der Andacht" ) {
+                        imgUrl = 'web/img/amenity_place_of_worship.png'
+                    } else if ( p === "Cafe " ) {
+                        imgUrl ='web/img/amenity_cafe.png'
+                    } else if ( p === "Fast Food" ) {
+                        imgUrl ='web/img/amenity_fast_food.png'
+                    } else if ( p === "Automat" ) {
+                        imgUrl = 'web/img/amenity_vending_machine.png'
+                    } else if ( p === "Bar" ) {
+                        imgUrl = 'web/img/amenity_cafe.png'// BAR MISSING
+                    } else if ( p === "Bibliothek") {
+                        imgUrl = 'web/img/amenity_library.png'
+                    } else if ( p === "Marktplatz") {
+                        imgUrl = 'web/img/amenity_marketplace.png'
+                    } else if ( p === "Theater" ) {
+                        imgUrl = 'web/img/amenity_library.png'
+                    } else if ( p === "Eis") {
+                        imgUrl = 'web/img/amenity_cafe.png' // ICE CREAM MISSING
+                    } else if ( p === "Kino") {
+                        imgUrl = 'web/img/amenity_cinema.png'
+                    } else if ( p === "Grillplatz" ) {
+                        imgUrl = 'web/img/amenity_bbq.png'
+                    } else if ( p === "Internet Cafe" ) {
+                        imgUrl = 'web/img/amenity_cafe.png' // MISSING ICON
+                    } else if ( p === "Food Court") {
+                        imgUrl = 'web/img/amenity_food_court.png'
+                    } else if ( p === "Biergarten" ) {
+                        imgUrl = 'web/img/amenity_biergarten.png'
+                    } else if ( p === "Bordell" ) {
+                        imgUrl = 'web/img/amenity_brothel.png'
+                    } else if ( p === "Pub" ) {
+                        imgUrl = 'web/img/amenity_pub.png'
+                    } else if ( p === "Museum" ) {
+                        imgUrl ='web/img/tourism_museum.png'
+                    } else if ( p === "Touristisches" ) {
+                        imgUrl = 'web/img/tourism_information.png'
+                    } else if ( p === "Nachtclub" ) {
+                        imgUrl = 'web/img/nightclub.png'
+                    } else if ( p === "Kunstausstellung" ) {
+                        imgUrl ='web/img/amenity_arts_centre.png'
+                    }
+                    iconContent += '<img hspace="4" src="' + imgUrl + '">'
+                }
             }
             popupContent += '</table>';
             layer.bindPopup('<h3><a href=\"https://www.google.com/maps/search/?api=1&query=' + feature.geometry.coordinates[1] 
             + ',' + feature.geometry.coordinates[0] + '\">' 
             + feature.properties.Betreiber.substr(0, feature.properties.Betreiber.indexOf(" ")) +
-             ' (' + feature.properties.Max + ' KW)</a></h3>'+popupContent).openPopup();
+             ' (' + feature.properties.Max + ' KW)</a></h3>'+iconContent+popupContent).openPopup();
             layer.title = feature.properties.Betreiber;
         }
     }
@@ -111,7 +233,29 @@
             L.geoJSON(data, {
                 onEachFeature: onEachFeature,
                 filter: function(feature, layer) {
-                    return feature.properties["Fast Food"] > 0 
+                    return ( feature.properties["Restaurant"] > 0 |
+                    feature.properties["Ort der Andacht"] > 0 |
+                    feature.properties["Cafe"] > 0 |
+                    feature.properties["Fast Food"] > 0 |
+                    feature.properties["Automat"] > 0 |
+                    feature.properties["Bar"] > 0 |
+                    feature.properties["Bibliothek"] > 0 |
+                    feature.properties["Marktplatz"] > 0 |
+                    feature.properties["Theater"] > 0 |
+                    feature.properties["Eis"] > 0 |
+                    feature.properties["Kino"] > 0 |
+                    feature.properties["Grillplatz"] > 0 |
+                    feature.properties["Kunstausstellung"] > 0 |
+                    feature.properties["Nachtclub"] > 0 |
+                    feature.properties["Bücherschrank"] > 0 |
+                    feature.properties["Internet Cafe"] > 0 |
+                    feature.properties["Food Court"] > 0 |
+                    feature.properties["Biergarten"] > 0 |
+                    feature.properties["Bordell"] > 0 |
+                    feature.properties["Pub"] > 0 |
+                    feature.properties["Museum"] > 0 |
+                    feature.properties["Touristisches"] > 0
+                    )
                 }
             }).addTo(map);
         });
@@ -129,9 +273,9 @@
         }
     }).addTo(map);
 
-    var helloPopup = L.popup().setContent('Hello World!');
+    var helloPopup = L.popup().setContent('Hier kommt eine Erklärung hin!');
 
-    L.easyButton('i', function(btn, map){
+    L.easyButton('fa-question', function(btn, map){
         helloPopup.setLatLng(map.getCenter()).openOn(map);
     }).addTo( map );
 
