@@ -1,5 +1,5 @@
 # freeev
-[A map of free EV charging stations in Germany](https://www.freeev.de)
+[A map of free-of-charge EV charging stations in Germany](https://www.freeev.de)
 
 Currently based on data by [Bundesnetzagentur (BNA)](https://www.bundesnetzagentur.de/DE/Sachgebiete/ElektrizitaetundGas/Unternehmen_Institutionen/E-Mobilitaet/KontaktUndWeiteres.html?nn=971862), which seems incomplete and often incorrect, this analysis is done by [create_map.py](create_map.py) and generates [index.html](index.html) and the file [free_chargers_DE.geojson](free_chargers_DE.geojson)
 
